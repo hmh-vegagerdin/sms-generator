@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Snjóflóða SMS Generator</title>
+    <link rel="manifest" href="manifest.json">
+</head>
+<center>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+         /* Windows 11 Style Variables (Optional but good practice) */
+        :root {
+            --windows-blue: #0078D4;
+            --windows-grey: #f3f3f3;
+            --text-color: #1c1c1c;
+            --border-color: #e0e0e0;
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Base styles for the entire page */
+        body {
+            margin: 0;
+            background-color: var(--windows-grey); 
+            font-family: var(--font-family);
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        /* The App Container (The "Window") */
+        #app-container {
+            width: 100%;
+ 	    height: 700px;	
+            width: 480px; /* Slightly wider than phone for desktop feel */
+            background-color: #ffffff;
+            padding: 24px 30px; /* Spacious padding */
+            border-radius: 8px; 
+            /* Subtle, clean border instead of heavy shadow */
+            border: 1px solid var(--border-color); 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+            text-align: left;
+        }
+
+        /* Header and Titles */
+        h2 {
+            text-align: left; /* Headers usually align left in Windows apps */
+            color: var(--text-color);
+            font-size: 1.4em;
+            font-weight: 600; /* Semi-bold look */
+            margin-top: 0;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+        
+        /* Sub-header */
+        h3 {
+            color: var(--windows-blue);
+            margin-top: 30px;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            font-weight: 400;
+        }
+
+        /* Input Group Layout */
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 6px 0;
+        }
+
+        .input-group label {
+            font-weight: 400; /* Regular weight */
+            color: var(--text-color);
+            flex-shrink: 0;
+            padding-right: 5px;
+            width: 160px; /* Give labels consistent space */
+        }
+        
+        /* Styling for Select and Input Fields */
+        .input-group select,
+        .input-group input[type="time"] {
+            padding: 9px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            flex-grow: 1;
+            background-color: #fcfcfc;
+            /* Focus state is key for Windows feel */
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+        
+        .input-group select:focus,
+        .input-group input[type="time"]:focus {
+            border-color: var(--windows-blue);
+            box-shadow: 0 0 0 1px var(--windows-blue);
+            outline: none;
+        }
+
+        /* Style the time button (Clean, secondary action look) */
+        .input-group button {
+            background-color: #e6e6e6; 
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 9px 12px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: background-color 0.15s;
+        }
+
+        .input-group button:hover {
+            background-color: #dcdcdc;
+        }
+        
+        /* Output and Separators */
+        hr {
+            border: 0;
+            border-top: 1px solid var(--border-color);
+            margin: 20px 0;
+        }
+
+        #sms-output {
+            background-color: #f7f7f7;
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            margin: 15px 0 25px 0;
+            border-radius: 4px;
+            font-size: 1em;
+            word-wrap: break-word;
+            color: var(--text-color);
+        }
+
+        /* Main Action Button (Windows accent color style) */
+        #copy-button {
+            width: 100%;
+            padding: 12px;
+            font-size: 1em;
+            font-weight: 600;
+            background-color: var(--windows-blue); /* Primary Windows color */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.15s;
+        }
+
+        #copy-button:hover {
+            background-color: #005bb5;
+        }
+    </style>
+
+<body>
+
+   <div id="app-container">
+
+    <h2>SNJÓFLÓÐA SMS</h2>
+
+ <div class="input-group">
+    <label for="avalancheLevel">Stig viðvörunar:</label>
+    <select id="avalancheLevel" onchange="handleLevelChange()">
+        <option value="" selected disabled>Velja stig viðvörunar...</option>
+        <option value="Fyrsta stig">Fyrsta stig</option>
+        <option value="Annað stig">Annað stig</option>
+        <option value="Þriðja stig">Þriðja stig</option>
+        <option value="Fjórða stig">Fjórða stig</option>
+        <option value="Fjórða stigi aflýst">Fjórða stigi aflýst</option>
+        <option value="Þriðja stigi aflýst">Þriðja stigi aflýst</option>
+    </select>
+</div>
+
+<div class="input-group">
+    <label for="location">Staðsetning:</label>
+    <select id="location" onchange="generateSMS()" disabled>
+    <option value="Raknadalshlíð" selected>Raknadalshlíð</option>
+    <option value="Flateyrarvegur" selected>Flateyrarvegur</option>
+    <option value="Súðavíkurhlíð">Súðavíkurhlíð</option>
+    <option value="Siglufjarðarvegur">Siglufjarðarvegur</option>
+    <option value="Ólafsfjarðarmúli">Ólafsfjarðarmúli</option>
+    <option value="Fagridalur">Fagridalur</option>
+    
+    </select>
+</div>
+
+ <div class="input-group">
+    <label for="when">Hvenær:</label>
+    <select id="when" onchange="generateSMS()" disabled>
+    <option value="í dag" selected>í dag</option>
+    <option value="í kvöld" selected>í kvöld</option>    
+    <option value="í nótt">í nótt</option>
+    <option value="á morgun">á morgun</option>
+    <option value="í fyrramálið">í fyrramálið</option>
+<option value="fyrir hádegi">fyrir hádegi</option>
+<option value="eftir hádegi">eftir hádegi</option>
+</select></div>
+
+ <div class="input-group">
+    <label for="weekday">Vikudagur:</label>
+    <select id="weekday" onchange="generateSMS()" disabled>
+    <option value="mánudag">mánudag</option>
+    <option value="þriðjudag">þriðjudag</option>
+    <option value="miðvikudag">miðvikudag</option>
+    <option value="fimmtudag">fimmtudag</option>
+    <option value="föstudag">föstudag</option>
+    <option value="laugardag">laugardag</option>
+    <option value="sunnudag">sunnudag</option>
+</select></div>
+
+  <div class="input-group">
+    <label for="status">Staða - Opið/Lokað):</label>
+    <select id="status" onchange="generateSMS()" disabled>
+    <option value="Opið.">Opið</option>
+    <option value="Opið, óvissustig í gildi.">Opið, óvissustig í gildi.</option>
+    <option value="Lokað.">Lokað</option>
+    <option value="Lokað, unnið að hreinsun.">Lokað, unnið að hreinsun.</option>
+    </select></div><br>
+    
+<div class="input-group">
+    <label for="manualTime">Tími (HH:MM):</label>
+    <input type="time" id="manualTime" onchange="generateSMS()">
+    <button onclick="setCurrentTime()" type="button">
+        Fá Tíma Núna 🕒
+    </button>
+</div><center>
+<i>ATH á 4. stigi er sjálfkrafa sett inn Lokað.</i>
+
+<hr>
+<h3>SMS til útsendingar</h3>
+
+<p id="sms-output">Veljið úr listunum að ofan til að búa til sms</p>
+
+<button onclick="copySMS()">
+    Afrita texta á klippiborð 📋
+</button>
+</center>
+<script src="sms_generator.js"></script>
+</html>
