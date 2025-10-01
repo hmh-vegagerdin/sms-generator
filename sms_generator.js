@@ -1,12 +1,23 @@
 // sms_generator.js - Complete File
 
-// A list of the IDs for the dependent dropdowns
+// ID fyrir dropdown listana
 const DEPENDENT_DROPDOWN_IDS = [
     'location',
     'when',
     'weekday',
     'status'
 ];
+
+// Logo sem birtist í smástund og hverfur í byrjun
+
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    document.getElementById("logo-overlay").classList.add("fade-out");
+    setTimeout(() => {
+      document.getElementById("logo-overlay").style.display = "none";
+    }, 1500); // match transition time
+  }, 2000); // how long logo stays visible
+});
 
 /**
  * Sets the 'manualTime' input field to the current local time (HH:MM) 24h format.
