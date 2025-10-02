@@ -20,21 +20,3 @@
 
 }
 
-// This code checks if the app is running in the 'standalone' PWA mode
-if (window.matchMedia('(display-mode: standalone)').matches) {
-  
-  // We use localStorage to check if we've already set the size once.
-  // This prevents the window from resizing every single time the app is opened.
-  if (!localStorage.getItem('pwa_has_been_sized')) {
-    
-    // Set the desired size. Your 700px height is here.
-    const desiredWidth = 480;
-    const desiredHeight = 700;
-
-    // The command to resize the PWA window.
-    window.resizeTo(desiredWidth, desiredHeight);
-    
-    // Set the flag in localStorage so this code doesn't run again.
-    localStorage.setItem('pwa_has_been_sized', 'true');
-  }
-}
