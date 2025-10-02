@@ -22,7 +22,7 @@
 	justify-content: center;
 	z-index: 9999;
 	opacity: 1;
-	transition: opacity 1.5s ease; /* smooth fade */
+	transition: opacity 1.0s ease; /* smooth fade */
 }
 
 #logo-overlay.fade-out {
@@ -40,7 +40,7 @@
             --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* Base styles for the entire page */
+        /* Grunnstillingar síðunnar */
         body {
             margin: 0;
             background-color: var(--windows-grey); 
@@ -48,15 +48,18 @@
             display: flex;
             justify-content: center;
             padding: 0px;
-            height: 700px;
+            min-height: 700px;
+			min-width: 480px;
+			overflow:hidden;
+			
         }
         
-        /* The App Container (The "Window") */
+        /* Útlit glugganns */
         #app-container {
             width: 100%;
-	    height: 100%	
- 	    height: 700px;	
-            width: 480px; /* Slightly wider than phone for desktop feel */
+			height: 100%
+			height: 700px;	
+            width: 460px; /* Slightly wider than phone for desktop feel */
             background-color: #ffffff;
             padding: 25px 25px; /* Spacious padding */
             border-radius: 0px; 
@@ -67,9 +70,9 @@
             overflow-y: hidden;
         }
 
-        /* Header and Titles */
+        /* Fyrirsagnir og titlar */
         h2 {
-            text-align: left; /* Headers usually align left in Windows apps */
+            text-align: left; /* windows er default til vinstri */
             color: var(--text-color);
             font-size: 1.4em;
             font-weight: 600; /* Semi-bold look */
@@ -78,7 +81,7 @@
             text-align: center;
         }
         
-        /* Sub-header */
+        /* Undir fyrirsögn */
         h3 {
             color: var(--windows-blue);
             margin-top: 30px;
@@ -123,7 +126,7 @@
             outline: none;
         }
 
-        /* Style the time button (Clean, secondary action look) */
+        /* Klukkutakkinn */
         .input-group button {
             background-color: #e6e6e6; 
             color: var(--text-color);
@@ -140,8 +143,8 @@
         }
         
         /* Output and Separators */
-        hr {
-            border: 0;
+        	hr {
+			border: 0;
             border-top: 1px solid var(--border-color);
             margin: 20px 0;
         }
@@ -157,8 +160,8 @@
             color: var(--text-color);
         }
 
-        /* Main Action Button (Windows accent color style) */
-        #copy-button {
+        /* Afrita texta takkinn */
+        	#copy-button {
             width: 100%;
             padding: 12px;
             font-size: 1em;
@@ -168,9 +171,8 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            transition: background-color 0.15s;
+			transition: background-color 0.15s;
         }
-
         #copy-button:hover {
             background-color: #005bb5;
         }
@@ -270,6 +272,7 @@ ATH á 4. stigi er sjálfkrafa sett inn Lokað.</i>
 <br><font size=1><center>Hönnun & forritun<br>Vaktnördið
 
 </html>
+
 
 
 
