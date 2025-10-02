@@ -45,7 +45,7 @@ function handleLevelChange() {
     // Base inputs (location, when, weekday) are unlocked if a level is selected AND it's NOT "Fyrsta stig"
     const shouldUnlockBaseInputs = isLevelSelected && level !== "Fyrsta stig";
 
-    // 'status' is only needed for Þriðja stig and the 'aflýst' (cancelled) cases.
+    // 'status' nýtist bara á þessum þrepum.
     const requiresStatus = (
         level === "Þriðja stig" || 
         level === "Fjórða stigi aflýst" || 
@@ -102,7 +102,7 @@ function generateSMS() {
 
         case "Annað stig":
             // Note: Does not use 'currentTime' or 'status'
-            finalMessage = `Frá Vegagerðinni: B: ${loc}: Snjóflóðahætta er möguleg síðar ${whenTime} ${day}.`;
+            finalMessage = `Frá Vegagerðinni: B: ${loc}: Snjóflóðahætta er möguleg  ${whenTime} ${day}.`;
             break;
 
         case "Þriðja stig":
