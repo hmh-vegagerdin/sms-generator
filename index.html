@@ -58,8 +58,7 @@
         #app-container {
             width: 100%;
 			height: 100%
-			height: 700px;	
-            width: 460px; /* Slightly wider than phone for desktop feel */
+			min-width: 460px; /*  */
             background-color: #ffffff;
             padding: 25px 25px; /* Spacious padding */
             border-radius: 0px; 
@@ -67,7 +66,7 @@
             border: 1px solid var(--border-color); 
             box-shadow: 0 0 0px rgba(0, 0, 0, 0.15);
             text-align: left;
-            overflow-y: hidden;
+            overflow: hidden;
         }
 
         /* Fyrirsagnir og titlar */
@@ -252,11 +251,10 @@
     <label for="manualTime">Tími (HH:MM):</label>
     <input type="time" id="manualTime" onchange="generateSMS()">
     <button onclick="setCurrentTime()" type="button">
-        Fá Tíma Núna 🕒
+        Rauntími 🕒
     </button>
 </div><center>
 <i>
-Tími er settur inn handvirkt með takka eða skrifa í reitinn.<br> AM fyrir hádegi - PM eftir hádegi <br>
 ATH á 4. stigi er sjálfkrafa sett inn Lokað.</i>
 
 <hr>
@@ -269,9 +267,9 @@ ATH á 4. stigi er sjálfkrafa sett inn Lokað.</i>
 </button>
 </center>
 <script src="sms_generator.js"></script>
-<br><font size=1><center>Hönnun & forritun<br>Vaktnördið
 
 </html>
+
 
 
 
