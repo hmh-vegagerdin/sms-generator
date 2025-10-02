@@ -1,4 +1,4 @@
-// sms_generator.js - Complete File
+// sms_generator.js
 
 // ID fyrir dropdown listana
 const DEPENDENT_DROPDOWN_IDS = [
@@ -19,14 +19,9 @@ window.addEventListener("load", () => {
   }, 2000); // how long logo stays visible
 });
 
-/**
- * Sets the 'manualTime' input field to the current local time (HH:MM) 24h format.
- */
+/*  Fúnksjón til að stimpla inn tíma í textann í 24h formati. */
 function setCurrentTime() {
     const now = new Date();
-    
-    // Get hours and minutes, ensuring leading zeros (24-hour format)
-   // These ensure 24-hour format, e.g., 15:37, NOT 03:37 PM
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const currentTime24h = `${hours}:${minutes}`;
@@ -34,25 +29,22 @@ function setCurrentTime() {
     generateSMS();
 }
 
-/**
- * Handles the change event for the primary 'avalancheLevel' dropdown.
- * Enables/disables other dropdowns and calls the message generator.
- */
+/* Fúnksjón til að læsa listum þar til þrep er valið. */
 function handleLevelChange() {
     const level = document.getElementById('avalancheLevel').value;
     const isLevelSelected = level !== '';
     
-    // Base inputs (location, when, weekday) are unlocked if a level is selected AND it's NOT "Fyrsta stig"
+/* Input listar eru læstir (staðsetning, hvenær, vikurdagur) opna ef þrep er valið og það er ekki "fyrsta stig" */
     const shouldUnlockBaseInputs = isLevelSelected && level !== "Fyrsta stig";
 
-    // 'status' nýtist bara á þessum þrepum.
+    // 'staða' opnar bara á þessum þrepum.
     const requiresStatus = (
         level === "Þriðja stig" || 
         level === "Fjórða stigi aflýst" || 
         level === "Þriðja stigi aflýst"
     );
 
-    // Loop through all dependent dropdowns
+    // Lúppa sem les gegnum listana og býr til setninguna
     DEPENDENT_DROPDOWN_IDS.forEach(id => {
         const element = document.getElementById(id);
         if (!element) return;
@@ -76,12 +68,9 @@ function handleLevelChange() {
 }
 
 
-/**
- * Function to translate the nested Excel IF statement into JavaScript logic.
- * The core logic relies on the Snjóflóðastig (C5) value.
- */
+/* Þar sem þetta er upphaflega logic úr excel skjali þá er þessi fúnksjón til að þýða þau gögn. */
 function generateSMS() {
-    // 1. Get input values from the webpage
+    // 1. fá gögn af val-síðunni
     const getInput = (id) => document.getElementById(id).value;
 
     const level = getInput('avalancheLevel');
@@ -94,24 +83,24 @@ function generateSMS() {
 
     let finalMessage = "";
 
-    // 2. Translate the nested IF logic into a SWITCH statement
+    // 2. Þýða IF úr excel í switch
     switch (level) {
         case "Fyrsta stig":
             finalMessage = "Ekkert sms sent á fyrsta stigi";
             break;
 
         case "Annað stig":
-            // Note: Does not use 'currentTime' or 'status'
+            // Notar ekki tíma eða stöðu valmöguleikana
             finalMessage = `Frá Vegagerðinni: B: ${loc}: Snjóflóðahætta er möguleg  ${whenTime} ${day}.`;
             break;
 
         case "Þriðja stig":
-            // Uses all inputs except 'status' is appended separately
+            // Allir möguleikar opnir en staða er valkvætt að nota.
             finalMessage = `Frá Vegagerðinni: C: ${loc}: Snjóflóð: Óvissustigi er lýst yfir ${whenTime} ${day} kl. ${currentTime}. ${status}`;
             break;
 
         case "Fjórða stig":
-            // Ignores 'status' selection and hardcodes 'Lokað'
+            // Hunsar stöðu og læsir inn Lokað 
             finalMessage = `Frá Vegagerðinni: D: ${loc}: Snjóflóð: Hættustigi er lýst yfir ${whenTime} ${day} kl. ${currentTime} Lokað.`;
             break;
 
@@ -127,46 +116,42 @@ function generateSMS() {
             finalMessage = "Villa: Óþekkt snjóflóðastig. Vinsamlegast athugið valinn valmöguleika.";
     }
 
-    // 3. Update the HTML output area
+    // 3. Uppfæra html lokatexta
     document.getElementById('sms-output').textContent = finalMessage;
 
-    // 4. Ensure the copy button has the correct text after generation (if it was changed)
+    // 4. Afstemming að afritunartakkinn sé með réttan texta
     const copyButton = document.getElementById('copy-button');
     if (copyButton && copyButton.textContent !== "Afrita texta á klippiborð 📋") {
         copyButton.textContent = "Afrita texta á klippiborð 📋";
     }
 }
 
-/**
- * Function to copy the text content from the output area to the clipboard.
- */
+/* Fúnksjón til að afrita texta á klippiborð í windows */
 function copySMS() {
-    // 1. Get the text content from the output paragraph
+    // 1. Sækja texta
     const smsText = document.getElementById('sms-output').textContent;
     const copyButton = document.getElementById('copy-button');
 
-    // 2. Use the modern Clipboard API to write the text
+    // 2. Nota klippiborð API til að skrifa textann
     navigator.clipboard.writeText(smsText)
         .then(() => {
-            // Success: Provide visual confirmation to the user
-            alert("Texti afritaður á klippiborð!");
+            // Tókst: staðfestingartexti
+            alert("Þessi texti hefur verið afritaður og sendur á makann þinn.");
             
-            // Temporarily change the button text for better feedback
+            // Breyta takkatexta tímabundið (1.5 sekúndur)
             if (copyButton) {
                 copyButton.textContent = "Afritað! ✅";
-                
-                // Change it back after a short delay
                 setTimeout(() => {
-                    copyButton.textContent = "Afrita texta á klippiborð 📋";
+                copyButton.textContent = "Afrita texta á klippiborð 📋";
                 }, 1500);
             }
         })
         .catch(err => {
             // Error: This might happen if the page is not secure (not HTTPS)
             console.error('Could not copy text: ', err);
-            alert("Villa: Gat ekki afritað texta. Vinsamlegast veljið textann handvirkt.");
+            alert("Auli! Gat ekki afritað texta. Vinsamlegast veljið textann handvirkt.");
         });
 }
 
-// Ensure the initial state of the dropdowns is set on page load
+// Passa að upphafsstaða komi á þegar síða er hlaðin aftur
 window.onload = handleLevelChange;
