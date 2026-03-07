@@ -34,7 +34,7 @@ function handleLevelChange() {
     const level = document.getElementById('avalancheLevel').value;
     const isLevelSelected = level !== '';
     
-/* Input listar eru læstir (staðsetning, hvenær, vikurdagur) opna ef þrep er valið og það er ekki "fyrsta stig" */
+/* Input listar eru læstir (staðsetning, hvenær, vikudagur) opna ef þrep er valið og það er ekki "fyrsta stig" */
     const shouldUnlockBaseInputs = isLevelSelected && level !== "Fyrsta stig";
 
     // 'staða' opnar bara á þessum þrepum.
@@ -136,7 +136,7 @@ function copySMS() {
     navigator.clipboard.writeText(smsText)
         .then(() => {
             // Tókst: staðfestingartexti
-            alert("Þessi texti hefur verið afritaður og sendur á makann þinn.");
+            alert("Þessi texti hefur verið afritaður á klippiborðið");
             
             // Breyta takkatexta tímabundið (1.5 sekúndur)
             if (copyButton) {
@@ -149,7 +149,7 @@ function copySMS() {
         .catch(err => {
             // Error: This might happen if the page is not secure (not HTTPS)
             console.error('Could not copy text: ', err);
-            alert("Auli! Gat ekki afritað texta. Vinsamlegast veljið textann handvirkt.");
+            alert("Djöfuls tölvudrasl..gat ekki afritað texta. Vinsamlegast veljið textann handvirkt.");
         });
 }
 
