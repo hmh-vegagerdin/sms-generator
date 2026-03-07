@@ -91,17 +91,17 @@ function generateSMS() {
 
         case "Annað stig":
             // Notar ekki tíma eða stöðu valmöguleikana
-            finalMessage = `Frá Vegagerðinni: B: ${loc}: Snjóflóðahætta er möguleg  ${whenTime} ${day}.`;
+            finalMessage = `Frá Vegagerðinni: A: ${loc}: Snjóflóðahætta er möguleg  ${whenTime} ${day}.`;
             break;
 
         case "Þriðja stig":
             // Allir möguleikar opnir en staða er valkvætt að nota.
-            finalMessage = `Frá Vegagerðinni: C: ${loc}: Snjóflóð: Óvissustigi er lýst yfir ${whenTime} ${day} kl. ${currentTime}. ${status}`;
+            finalMessage = `Frá Vegagerðinni: B: ${loc}: Snjóflóð: Óvissustigi er lýst yfir ${whenTime} ${day} kl. ${currentTime}. ${status}`;D
             break;
 
         case "Fjórða stig":
             // Hunsar stöðu og læsir inn Lokað 
-            finalMessage = `Frá Vegagerðinni: D: ${loc}: Snjóflóð: Hættustigi er lýst yfir ${whenTime} ${day} kl. ${currentTime} Lokað.`;
+            finalMessage = `Frá Vegagerðinni: C: ${loc}: Snjóflóð: Hættustigi er lýst yfir ${whenTime} ${day} kl. ${currentTime} Lokað.`;
             break;
 
         case "Fjórða stigi aflýst":
