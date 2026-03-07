@@ -2,17 +2,15 @@
 <html>
 <head>
   <title>Snjóflóða SMS Generator</title>
-<link rel="icon" type="image/png" href="favicon.png">
-    <link rel="manifest" href="manifest.json">
-</head>
-<center>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
 
 /* Intro Logo sem sést í 1.5 sekúndur */
 #logo-overlay {
 	position: fixed;
-	top: 100;
+	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
@@ -40,25 +38,25 @@
             --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* Grunnstillingar síðunnar */
+        /* Grunnstellingar síðunnar */
         body {
             margin: 0;
             padding: 0px;
-			background-color: var(--windows-grey); 
+		background-color: var(--windows-grey); 
             font-family: var(--font-family);
             display: flex;
             justify-content: center;
             height: 100vh;
-			width: 100vw;
-			overflow:hidden;
-			
+		width: 100vw;
+		overflow:hidden;
+		
         }
         
         /* Útlit glugganns */
         #app-container {
             width: 460px;
-			height: 700px:
-			/*widht: 460px; */
+		height: 700px;
+		/*widht: 460px; */
             background-color: #ffffff;
             padding: 25px; /* Spacious padding */
             border-radius: 0px; 
@@ -68,13 +66,12 @@
 
         /* Fyrirsagnir og titlar */
         h2 {
-            text-align: left; /* windows er default til vinstri */
+            text-align: center;
             color: var(--text-color);
             font-size: 1.4em;
             font-weight: 600; /* Semi-bold look */
             margin-top: 0;
             margin-bottom: 5px;
-            text-align: center;
         }
         
         /* Undir fyrirsögn */
@@ -139,8 +136,8 @@
         }
         
         /* Output and Separators */
-        	hr {
-			border: 0;
+         	hr {
+		border: 0;
             border-top: 1px solid var(--border-color);
             margin: 20px 0;
         }
@@ -153,13 +150,13 @@
             border-radius: 4px;
             font-size: 1em;
             word-wrap: break-word;
-			max-height: 150px;
-			overlow-y: auto;
+		max-height: 150px;
+		overflow-y: auto;
             color: var(--text-color);
         }
 
         /* Afrita texta takkinn */
-        	#copy-button {
+         	#copy-button {
             width: 100%;
             padding: 12px;
             font-size: 1em;
@@ -169,7 +166,7 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-			transition: background-color 0.15s;
+		transition: background-color 0.15s;
         }
         #copy-button:hover {
             background-color: #005bb5;
@@ -179,7 +176,7 @@
 <body>
 	
 	<div id="logo-overlay">
-  	<img src="logo.png" alt="Logo" />
+   	<img src="logo.png" alt="Logo" />
 	</div>
 
    <div id="app-container">
@@ -203,12 +200,11 @@
     <label for="location">Staðsetning:</label>
     <select id="location" onchange="generateSMS()" disabled>
     <option value="Raknadalshlíð" selected>Raknadalshlíð</option>
-    <option value="Flateyrarvegur" selected>Flateyrarvegur</option>
+    <option value="Flateyrarvegur">Flateyrarvegur</option>
     <option value="Súðavíkurhlíð">Súðavíkurhlíð</option>
     <option value="Siglufjarðarvegur">Siglufjarðarvegur</option>
     <option value="Ólafsfjarðarmúli">Ólafsfjarðarmúli</option>
     <option value="Fagridalur, Grænafell">Fagridalur, Grænafell</option>
-    
     </select>
 </div>
 
@@ -216,14 +212,15 @@
     <label for="when">Hvenær:</label>
     <select id="when" onchange="generateSMS()" disabled>
     <option value="í dag" selected>í dag</option>
-	<option value="síðar í dag" selected>síðar í dag</option>
-    <option value="í kvöld" selected>í kvöld</option>
+	<option value="síðar í dag">síðar í dag</option>
+    <option value="í kvöld">í kvöld</option>
     <option value="í nótt">í nótt</option>
     <option value="á morgun">á morgun</option>
     <option value="í fyrramálið">í fyrramálið</option>
-<option value="fyrir hádegi">fyrir hádegi</option>
-<option value="eftir hádegi">eftir hádegi</option>
-</select></div>
+    <option value="fyrir hádegi">fyrir hádegi</option>
+    <option value="eftir hádegi">eftir hádegi</option>
+    </select>
+</div>
 
  <div class="input-group">
     <label for="weekday">Vikudagur:</label>
@@ -235,59 +232,45 @@
     <option value="föstudag">föstudag</option>
     <option value="laugardag">laugardag</option>
     <option value="sunnudag">sunnudag</option>
-</select></div>
+    </select>
+</div>
 
   <div class="input-group">
-    <label for="status">Staða - Opið/Lokað):</label>
+    <label for="status">Staða - Opið/Lokað:</label>
     <select id="status" onchange="generateSMS()" disabled>
     <option value=" "> </option>
     <option value="Opið.">Opið</option>
     <option value="Opið, óvissustig í gildi.">Opið, óvissustig í gildi.</option>
     <option value="Lokað.">Lokað</option>
     <option value="Lokað, unnið að hreinsun.">Lokað, unnið að hreinsun.</option>
-    </select></div><br>
-    
+    </select>
+</div>
+
 <div class="input-group">
     <label for="manualTime">Tími (HH:MM):</label>
     <input type="time" id="manualTime" onchange="generateSMS()">
     <button onclick="setCurrentTime()" type="button">
         Rauntími 🕒
-    </button>	</div>
-	<center>
-	<hr> <!--lína til að aðskilja hluta-->
-	
-	Muna að senda ekki sms án samráðs við verkstjóra svæðis nema snjóflóð hafi þegar lokað vegi.<br>
-	<i>ATH á 4. stigi er sjálfkrafa sett inn Lokað.</i> <!--skásettur texti-->
- 	<h3>SMS til útsendingar</h3>
+    </button>
+</div>
+
+<center>
+<hr>
+
+Muna að senda ekki sms án samráðs við verkstjóra svæðis nema snjóflóð hafi þegar lokað vegi.<br>
+<i>ATH á 4. stigi er sjálfkrafa sett inn Lokað.</i>
+<h3>SMS til útsendingar</h3>
 
 <p id="sms-output">Ekkert þrep valið</p>
 
-<button onclick="copySMS()">
+<button id="copy-button" onclick="copySMS()">
     Afrita texta á klippiborð 📋
 </button>
 </center>
+
+</div>
+
 <script src="sms_generator.js"></script>
 
+</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
