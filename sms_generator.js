@@ -96,7 +96,7 @@ function generateSMS() {
 
         case "Þriðja stig":
             // Allir möguleikar opnir en staða er valkvætt að nota.
-            finalMessage = `Frá Vegagerðinni: B: ${loc}: Snjóflóð: Óvissustigi er lýst yfir ${whenTime} ${day} kl. ${currentTime}. ${status}`;D
+            finalMessage = `Frá Vegagerðinni: B: ${loc}: Snjóflóð: Óvissustigi er lýst yfir ${whenTime} ${day} kl. ${currentTime}. ${status}`;
             break;
 
         case "Fjórða stig":
