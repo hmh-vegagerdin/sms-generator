@@ -1,6 +1,6 @@
 {
-  "name": "Snjóflóða SMS Generator",
-  "short_name": "SMS Gen",
+  "name": "Snjóflóða SMS texti",
+  "short_name": "SMS texti",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -19,4 +19,5 @@
   ]
 
 }
+
 
