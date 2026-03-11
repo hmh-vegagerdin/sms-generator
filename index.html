@@ -330,7 +330,7 @@
 
   <div class="app-body">
 
-    <!-- Level -->
+    <!-- listi fyrir þrep snjóflóðavaktar -->
     <div class="section-label">Viðvörunarstig snjóflóðavaktar veðurstofu</div>
     <div class="field" style="grid-template-columns:1fr;">
       <select id="avalancheLevel" onchange="handleLevelChange()">
@@ -344,7 +344,7 @@
       </select>
     </div>
 
-    <!-- Location / When / Weekday / Status -->
+    <!-- Upplýsingar valmöguleikar -- Staðsetning / Hvenær / Vikudagur / Staða -->
     <div class="section-label" style="margin-top:18px;">Upplýsingar</div>
 
     <div class="field">
@@ -437,7 +437,7 @@
     }
   </script>
 <script>
-  // Auto-select today's weekday on load
+  // byrjar á að velja sjálfvirkt daginn í dag, en möguleiki á að breyta ef þarf
   (function setTodayWeekday() {
     const days = ['sunnudag','mánudag','þriðjudag','miðvikudag','fimmtudag','föstudag','laugardag'];
     const today = days[new Date().getDay()];
@@ -447,7 +447,7 @@
     }
   })();
 
-  // Patch generateSMS to also update char count & output style
+  // Setur saman SMS úr listum og skoðar ef eitthvað breytist og telur stafina
   const _origGenerate = generateSMS;
   generateSMS = function() {
     _origGenerate();
